@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="25dp"
+            android:paddingTop="25dp"
+            tools:ignore="RtlSymmetry">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
+                android:layout_width="145dp"
+                android:layout_height="245dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/poster_a_start_is_born"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="10dp" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextContent"
+                android:layout_width="172dp"
+                android:layout_height="76dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/date_release"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="@string/title" />
+
+            <TextView
+                android:id="@+id/date_release"
+                style="@style/TextContent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="5dp"
+                android:lineSpacingMultiplier="1"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="@string/date" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                style="@style/TextContent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="15dp"
+                android:lineSpacingMultiplier="1"
+                android:text="@string/title_rating"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/date_release" />
+
+            <TextView
+                android:id="@+id/rating"
+                style="@style/TextContent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/subtitle"
+                tools:text="@string/rating" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="140dp"
+                android:src="@drawable/ic_favorite"
+                android:background="?selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/rating"
+                app:maxImageSize="28dp"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            style="@style/TextContent.Subtitle"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/synopsis_title"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/synopsis"
+            style="@style/TextContent"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:lineSpacingMultiplier="1"
+            tools:text="@string/synopsis"
+            android:textStyle="italic" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    style="@style/TextSpec.Field"
+                    android:text="@string/vote_count" />
+
+                <TextView
+                    android:id="@+id/vote_count"
+                    style="@style/TextSpec.Value"
+                    tools:text="@string/content_specs" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    style="@style/TextSpec.Field"
+                    android:text="@string/popularity" />
+
+                <TextView
+                    android:id="@+id/popularity"
+                    style="@style/TextSpec.Value"
+                    tools:text="@string/content_specs" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    style="@style/TextSpec.Field"
+                    android:text="@string/orisinal_language" />
+
+                <TextView
+                    android:id="@+id/orisinal_language"
+                    style="@style/TextSpec.Value"
+                    tools:text="@string/content_specs" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
