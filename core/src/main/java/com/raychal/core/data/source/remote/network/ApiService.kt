@@ -1,22 +1,19 @@
-package com.raychal.moviesandtvshowsfinal.data.source.remote.api
+package com.raychal.core.data.source.remote.network
 
-import com.raychal.moviesandtvshowsfinal.BuildConfig
-import com.raychal.moviesandtvshowsfinal.data.source.remote.response.ListResponse
-import com.raychal.moviesandtvshowsfinal.data.source.remote.response.MovieResponse
-import com.raychal.moviesandtvshowsfinal.data.source.remote.response.TvShowResponse
-import retrofit2.Call
+import com.raychal.core.data.source.remote.response.ListMovieResponse
+import com.raychal.core.data.source.remote.response.ListTvShowResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("movie/now_playing")
-    fun getNowPlayingMovies(
-        @Query("api_key") apiKey: String = BuildConfig.TOKEN
-    ) : Call<ListResponse<MovieResponse>>
+    suspend fun getMovies(
+        @Query("api_key") apiKey: String,
+    ) : ListMovieResponse
 
     @GET("tv/on_the_air")
-    fun getTvShowOnTheAir(
-        @Query("api_key") apiKey: String = BuildConfig.TOKEN
-    ) : Call<ListResponse<TvShowResponse>>
+    suspend fun getTvShows(
+        @Query("api_key") apiKey: String,
+    ) : ListTvShowResponse
 }

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Movies And Tv Shows</string>
+    <string name="dummy_photos">dummy photo</string>
+    <string name="title">A Star Is Born</string>
+    <string name="synopsis_title">Synopsis</string>
+    <string name="date">10/05/2018 (US)</string>
+    <string name="rating">75%</string>
+    <string name="synopsis">Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Allys career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="popularity">Popularity</string>
+    <string name="orisinal_language">Original Language</string>
+    <string name="content_specs">content spec</string>
+    <string name="created_by_raychal_ababil">Created by Raychal Ababil</string>
+    <string name="movies">Movies</string>
+    <string name="tvshows">Tv Shows</string>
+    <string name="toolbar_title_detail_movie">Detail Movie</string>
+    <string name="toolbar_title_detail_tvshow">Detail TV Show</string>
+    <string name="title_rating">Rating</string>
+    <string name="empty_state_title_no_favorite_item">No favorite yet</string>
+    <string name="empty_state_desc_no_favorite_item_movie">You don\'t have a list of favorite movies</string>
+    <string name="empty_state_desc_no_favorite_item_tvshow">You don\'t have a list of favorite tv show</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorite_add">%s Add To Favorite</string>
+    <string name="favorite_remove">%s Remove From Favorite</string>
+    <string name="empty_state_title_no_conn">No internet connection</string>
+    <string name="tab_title_movie">Movie</string>
+    <string name="tab_title_tvshow">TV Show</string>
+</resources>

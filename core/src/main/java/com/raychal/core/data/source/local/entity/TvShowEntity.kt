@@ -1,4 +1,4 @@
-package com.raychal.moviesandtvshowsfinal.data.source.local.entity
+package com.raychal.core.data.source.local.entity
 
 import android.os.Parcelable
 import androidx.annotation.NonNull

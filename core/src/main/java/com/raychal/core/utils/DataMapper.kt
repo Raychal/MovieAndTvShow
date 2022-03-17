@@ -1,60 +1,86 @@
 package com.raychal.core.utils
 
-import com.raychal.core.data.source.local.entity.GameEntity
-import com.raychal.core.data.source.remote.response.DetailGameResponse
-import com.raychal.core.data.source.remote.response.GameResponse
-import com.raychal.core.domain.model.Game
+import com.raychal.core.data.source.local.entity.MovieEntity
+import com.raychal.core.data.source.remote.response.MovieResponse
+import com.raychal.core.data.source.remote.response.TvShowResponse
+import com.raychal.core.domain.model.Movie
 
 object DataMapper {
-    fun mapGameResponsetoEntities(input: List<GameResponse>) :List<GameEntity>{
-        val gameList = ArrayList<GameEntity>()
+    fun mapMovieResponsesToEntities(input: List<MovieResponse>): List<MovieEntity> {
+        val movieList = ArrayList<MovieEntity>()
         input.map {
-            val game = GameEntity(
-                it.backgroundImage,
-                null.toString(),
+            val movie = MovieEntity(
+                it.overview,
+                it.originalLanguage,
+                it.title,
+                it.popularity,
+                it.voteAverage,
+                it.voteCount,
                 it.id,
-                it.name,
-                it.playtime,
-                it.rating,
-                it.released,
-                it.toString(),
-                it.toString(),
-                favorite = false
+                it.posterPath,
+                it.releaseDate,
+                favorite = false,
+                isTvShows = false
             )
-            gameList.add(game)
+            movieList.add(movie)
         }
-        return gameList
+        return movieList
     }
 
-    fun mapEntitiesToDomain(input: List<GameEntity>): List<Game> {
+    fun mapTvShowResponsesToEntities(input: List<TvShowResponse>): List<MovieEntity> {
+        val movieList = ArrayList<MovieEntity>()
+        input.map {
+            val movie = MovieEntity(
+                it.overview,
+                it.originalLanguage,
+                it.firstAirDate,
+                it.popularity,
+                it.voteAverage,
+                it.voteCount,
+                it.id,
+                it.posterPath,
+                it.originalName,
+                favorite = false,
+                isTvShows = false
+            )
+            movieList.add(movie)
+        }
+        return movieList
+    }
+
+    fun mapEntitiesToDomain(input: List<MovieEntity>): List<Movie> {
         return input.map {
-            Game(
-                it.backgroundImage,
-                it.id,
-                it.name,
-                it.playtime,
-                it.rating,
-                it.released,
-                it.backgroundImageAdditional,
-                it.description,
-                it.updated,
+            Movie(
+                it.id!!,
+                it.overview!!,
+                it.originalLanguage!!,
+                it.title!!,
+                it.posterPath!!,
+                it.releaseDate!!,
+                it.popularity!!,
+                it.voteAverage!!,
+                it.voteCount!!,
+                isTvShows = false,
                 favorite = false
+
+
             )
         }
     }
 
-    fun mapDomainToEntity(input: Game): GameEntity {
-        return GameEntity(
-            input.backgroundImage,
-            input.backgroundImageAdditional,
+    fun mapDomainToEntity(input: Movie): MovieEntity {
+        return MovieEntity(
+            input.overview,
+            input.originalLanguage,
+            input.releaseDate,
+            input.popularity,
+            input.voteAverage,
             input.id,
-            input.name,
-            input.playtime,
-            input.rating,
-            input.released,
-            input.updated,
-            input.description,
-            favorite = input.favorite
+            input.id,
+            input.title,
+            input.posterPath,
+            favorite = input.favorite,
+            isTvShows = input.isTvShows
         )
     }
 }

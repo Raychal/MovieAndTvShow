@@ -2,10 +2,11 @@ package com.raychal.core.utils
 
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
-import com.raychal.core.domain.model.Game
+import com.raychal.core.domain.model.Movie
 
-class DiffUtils(private val oldList: List<Game>, private val newList: List<Game>) :
+class DiffUtils(private val oldList: List<Movie>, private val newList: List<Movie>) :
     DiffUtil.Callback() {
+
     override fun getOldListSize(): Int = oldList.size
 
     override fun getNewListSize(): Int = newList.size
@@ -14,37 +15,40 @@ class DiffUtils(private val oldList: List<Game>, private val newList: List<Game>
         return oldList[oldItemPosition].id == newList[newItemPosition].id
     }
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val (backgroundImage,
-            _,
-            name,
-            playtime,
-            rating,
-            released,
-            backgroundImageAdditional,
-            description,
-            updated,
-            favorite) = oldList[oldItemPosition]
-        val (backgroundImage1,
-            _,
-            name1,
-            playtime1,
-            rating1,
-            released1,
-            backgroundImageAdditional1,
-            description1,
-            updated1,
-            favorite1) = newList[newItemPosition]
+    override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
+        val (_,
+            overview,
+            originalLanguage,
+            title,
+            posterPath,
+            releaseDate,
+            popularity,
+            voteAverage,
+            voteCount,
+            favorite,
+            isTvShows) = oldList[oldPosition]
+        val (_,
+            overview1,
+            originalLanguage1,
+            title1,
+            posterPath1,
+            releaseDate1,
+            popularity1,
+            voteAverage1,
+            voteCount1,
+            favorite1,
+            isTvShows1) = newList[newPosition]
 
-        return backgroundImage == backgroundImage1
-                && name == name1
-                && playtime == playtime1
-                && rating == rating1
-                && released == released1
-                && backgroundImageAdditional == backgroundImageAdditional1
-                && description == description1
-                && updated == updated1
+        return overview == overview1
+                && originalLanguage == originalLanguage1
+                && title == title1
+                && posterPath == posterPath1
+                && releaseDate == releaseDate1
+                && popularity == popularity1
+                && voteAverage == voteAverage1
+                && voteCount == voteCount1
                 && favorite == favorite1
+                && isTvShows == isTvShows1
     }
 
     @Nullable

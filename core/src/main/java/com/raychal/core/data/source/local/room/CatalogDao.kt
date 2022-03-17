@@ -1,42 +1,35 @@
-package com.raychal.moviesandtvshowsfinal.data.source.local.room
+package com.raychal.core.data.source.local.room
 
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.room.*
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.MovieEntity
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.TvShowEntity
+import androidx.sqlite.db.SupportSQLiteQuery
+import com.raychal.core.data.source.local.entity.MovieEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CatalogDao {
 
-    @Query("SELECT * FROM tb_favorite_movie")
-    fun getListMovies() : DataSource.Factory<Int, MovieEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getMovies(query: SupportSQLiteQuery): Flow<List<MovieEntity>>
 
-    @Query("SELECT * FROM tb_favorite_tvshow")
-    fun getListTvShows() : DataSource.Factory<Int, TvShowEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getTvShows(query: SupportSQLiteQuery): Flow<List<MovieEntity>>
 
-    @Query("SELECT * FROM tb_favorite_movie WHERE isFavorite = 1")
-    fun getListFavoriteMovies() : DataSource.Factory<Int, MovieEntity>
+    @Query("SELECT * FROM movieEntities WHERE isTvShow = 0 AND movieTitle LIKE '%' || :search || '%'")
+    fun getSearchMovies(search: String): Flow<List<MovieEntity>>
 
-    @Query("SELECT * FROM tb_favorite_tvshow WHERE isFavorite = 1")
-    fun getListFavoriteTvShows() : DataSource.Factory<Int, TvShowEntity>
+    @Query("SELECT * FROM movieEntities WHERE isTvShow = 1 AND movieTitle LIKE '%' || :search || '%'")
+    fun getSearchTvShows(search: String): Flow<List<MovieEntity>>
 
-    @Query("SELECT * FROM tb_favorite_movie WHERE movieId = :movieId")
-    fun getDetailMovieById(movieId: Int) : LiveData<MovieEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getFavoriteMovies(query: SupportSQLiteQuery): Flow<List<MovieEntity>>
 
-    @Query("SELECT * FROM tb_favorite_tvshow WHERE tvShowId = :tvShowId")
-    fun getDetailTvShowById(tvShowId: Int) : LiveData<TvShowEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getFavoriteTvShows(query: SupportSQLiteQuery): Flow<List<MovieEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE, entity = MovieEntity::class)
-    fun insertMovies(movies: List<MovieEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMovie(movies: List<MovieEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE, entity = TvShowEntity::class)
-    fun insertTvShows(tvShows: List<TvShowEntity>)
-
-    @Update(entity = MovieEntity::class)
-    fun updateMovie(movie : MovieEntity)
-
-    @Update(entity = TvShowEntity::class)
-    fun updateTvShow(tvShows: TvShowEntity)
+    @Update
+    fun updateFavoriteMovie(movie: MovieEntity)
 
 }
