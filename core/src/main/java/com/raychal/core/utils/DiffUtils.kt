@@ -21,6 +21,7 @@ class DiffUtils(private val oldList: List<Movie>, private val newList: List<Movi
             originalLanguage,
             title,
             posterPath,
+            backdropPath,
             releaseDate,
             popularity,
             voteAverage,
@@ -32,6 +33,7 @@ class DiffUtils(private val oldList: List<Movie>, private val newList: List<Movi
             originalLanguage1,
             title1,
             posterPath1,
+            backdropPath1,
             releaseDate1,
             popularity1,
             voteAverage1,
@@ -43,6 +45,7 @@ class DiffUtils(private val oldList: List<Movie>, private val newList: List<Movi
                 && originalLanguage == originalLanguage1
                 && title == title1
                 && posterPath == posterPath1
+                && backdropPath == backdropPath1
                 && releaseDate == releaseDate1
                 && popularity == popularity1
                 && voteAverage == voteAverage1

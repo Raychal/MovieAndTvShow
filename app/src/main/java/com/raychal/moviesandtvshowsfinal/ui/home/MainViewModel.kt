@@ -1,18 +1,41 @@
 package com.raychal.moviesandtvshowsfinal.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
-import com.raychal.moviesandtvshowsfinal.data.source.CatalogRepository
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.MovieEntity
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.TvShowEntity
-import com.raychal.moviesandtvshowsfinal.vo.Resource
-import javax.inject.Inject
+import androidx.lifecycle.asLiveData
+import com.raychal.core.domain.usecase.MovieAppUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.*
 
-class MainViewModel @Inject constructor(private val catalogRepository: CatalogRepository) : ViewModel(){
+@FlowPreview
+@ExperimentalCoroutinesApi
+class MainViewModel (private val movieAppUseCase: MovieAppUseCase) : ViewModel(){
 
-    fun getListNowPlayingMovies(): LiveData<Resource<PagedList<MovieEntity>>> = catalogRepository.getNowPlayingMovies()
+    private val queryChannel = ConflatedBroadcastChannel<String>()
 
-    fun getListOnTheAirTvShows(): LiveData<Resource<PagedList<TvShowEntity>>> = catalogRepository.getTvShowOnTheAir()
+    fun setSearchQuery(search: String) {
+        queryChannel.trySend(search).isSuccess
+    }
+
+    val movieResult = queryChannel.asFlow()
+        .debounce(300)
+        .distinctUntilChanged()
+        .filter {
+            it.trim().isNotEmpty()
+        }
+        .flatMapLatest {
+            movieAppUseCase.getSearchMovies(it)
+        }.asLiveData()
+
+    val tvShowResult = queryChannel.asFlow()
+        .debounce(300)
+        .distinctUntilChanged()
+        .filter {
+            it.trim().isNotEmpty()
+        }
+        .flatMapLatest {
+            movieAppUseCase.getSearchTvShows(it)
+        }.asLiveData()
 
 }

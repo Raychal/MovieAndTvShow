@@ -10,6 +10,7 @@ data class Movie (
     var originalLanguage: String,
     var title: String,
     var posterPath: String,
+    var backdropPath: String,
     var releaseDate: String,
     var popularity: Double,
     var voteAverage: Double,

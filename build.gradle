@@ -5,7 +5,7 @@ buildscript {
         lottieVersion = "4.2.2"
         recyclerview = "1.2.1"
         cardview = "1.0.0"
-        lifecycle_version = "2.4.0"
+        lifecycle_version = "2.4.1"
         nav_version = "2.3.5"
         shimmer_version = "0.5.0"
         viewpager = "1.0.0"
@@ -19,7 +19,7 @@ buildscript {
         coroutine_version = "1.6.0"
         testing_core_version = "2.1.0"
         navigation_component_version = "2.2.2"
-        room_version = "2.4.1"
+        room_version = "2.4.2"
         dagger_version = "2.28.3"
         pagging_version = "2.1.2"
         fancy_version = "2.0.1"
@@ -32,10 +32,12 @@ buildscript {
         junit_version = "4.13.1"
         androidx_junit_version = "1.1.2"
         material_version = "1.2.1"
+        custom_fab_version = "1.6.4"
+        material_search_view_version = "1.4.0"
     }
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
@@ -49,8 +51,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()
-        mavenCentral() // Warning: this repository is going to shut down soon
+        jcenter()
     }
 }
 

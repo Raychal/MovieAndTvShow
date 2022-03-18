@@ -2,6 +2,7 @@ package com.raychal.core.ui
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -48,15 +49,8 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             with(binding) {
-                title.text = movie.title
-                date.text = movie.releaseDate
-                language.text = movie.originalLanguage
-                popularity.text =
-                    itemView.context.getString(
-                        R.string.popularity_d,
-                        movie.popularity.toString()
-                    )
-                userScore.text = movie.voteAverage.toString()
+                tvDataTitle.text = movie.title
+                tvDataDate.text = movie.releaseDate
 
                 Glide.with(itemView.context)
                     .load(itemView.context.getString(R.string.baseUrlImage, movie.posterPath))
@@ -82,7 +76,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
                             return false
                         }
                     })
-                    .into(poster)
+                    .into(imgData)
             }
         }
 

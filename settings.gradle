@@ -1,4 +1,7 @@
+include ':favorite'
 include ':core'
-rootProject.name = "MoviesAndTvShowsFinal"
 include ':app'
+rootProject.name = "MoviesAndTvShowsFinal"
+
+
 

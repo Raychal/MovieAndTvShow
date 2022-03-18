@@ -1,171 +1,366 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/share"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="25dp"
-            android:paddingTop="25dp"
-            tools:ignore="RtlSymmetry">
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/topBarCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="10dp"
+                app:cardMaxElevation="10dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/posterTopBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:background="@drawable/poster_placeholder"
+                        android:contentDescription="@string/postertopbar"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/poster_a_start_is_born" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/foregroundpostertopbar"
+                        android:src="@drawable/card_detail_foreground" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/titleDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/title"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toTopOf="@+id/date"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/roundedImageView" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/date"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/roundedImageView" />
+
+                        <TextView
+                            android:id="@+id/userScore"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/background_user_score"
+                            android:gravity="center"
+                            android:text="@string/rating"
+                            android:textColor="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/backButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/ic_back"
+                            android:contentDescription="@string/backbutton"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/roundedImageView"
+                            android:layout_width="120dp"
+                            android:layout_height="180dp"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/image"
-                android:layout_width="145dp"
-                android:layout_height="245dp"
+                android:id="@+id/subPoster"
+                android:layout_width="120dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
+                android:background="@drawable/poster_placeholder"
+                android:contentDescription="@string/subPoster"
+                android:elevation="10dp"
                 android:src="@drawable/poster_a_start_is_born"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/topBarCardView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topBarCardView"
                 app:riv_corner_radius="10dp" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/TextContent"
-                android:layout_width="172dp"
-                android:layout_height="76dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/date_release"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="@string/title" />
-
-            <TextView
-                android:id="@+id/date_release"
-                style="@style/TextContent"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="5dp"
-                android:lineSpacingMultiplier="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="@string/date" />
-
-            <TextView
-                android:id="@+id/subtitle"
-                style="@style/TextContent"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="15dp"
-                android:lineSpacingMultiplier="1"
-                android:text="@string/title_rating"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/date_release" />
-
-            <TextView
-                android:id="@+id/rating"
-                style="@style/TextContent"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
-                android:lineSpacingMultiplier="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/subtitle"
-                tools:text="@string/rating" />
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_favorite"
+                android:id="@+id/favoriteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="140dp"
-                android:src="@drawable/ic_favorite"
-                android:background="?selectableItemBackground"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/orange_light"
+                android:contentDescription="@string/favorite"
+                android:src="@drawable/favorite_selector"
+                android:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/rating"
-                app:maxImageSize="28dp"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/topBarCardView"
+                app:rippleColor="@color/black" />
+
+            <TextView
+                android:id="@+id/titleOverview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/synopsis_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subPoster" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/dividerBody"
+                android:layout_width="100dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
+                android:src="@color/orange_light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleOverview"
+                app:riv_corner_radius="2dp" />
+
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/synopsis"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerBody" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/overview">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        style="@style/TextSpec.Field"
+                        android:text="@string/vote_count" />
+
+                    <TextView
+                        android:id="@+id/vote_count"
+                        style="@style/TextSpec.Value"
+                        tools:text="@string/content_specs" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        style="@style/TextSpec.Field"
+                        android:text="@string/popularity" />
+
+                    <TextView
+                        android:id="@+id/popularity"
+                        style="@style/TextSpec.Value"
+                        tools:text="@string/content_specs" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        style="@style/TextSpec.Field"
+                        android:text="@string/orisinal_language" />
+
+                    <TextView
+                        android:id="@+id/orisinal_language"
+                        style="@style/TextSpec.Value"
+                        tools:text="@string/content_specs" />
+                </TableRow>
+            </TableLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            style="@style/TextContent.Subtitle"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/synopsis_title"
-            android:layout_marginBottom="10dp"/>
+    </androidx.core.widget.NestedScrollView>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
 
-        <TextView
-            android:id="@+id/synopsis"
-            style="@style/TextContent"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:lineSpacingMultiplier="1"
-            tools:text="@string/synopsis"
-            android:textStyle="italic" />
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingStart="25dp"-->
+<!--            android:paddingTop="25dp"-->
+<!--            tools:ignore="RtlSymmetry">-->
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
+<!--            <com.makeramen.roundedimageview.RoundedImageView-->
+<!--                android:id="@+id/image"-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_height="245dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:contentDescription="@string/app_name"-->
+<!--                android:scaleType="fitXY"-->
+<!--                android:src="@drawable/poster_a_start_is_born"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:riv_corner_radius="10dp" />-->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+<!--            <TextView-->
+<!--                android:id="@+id/title"-->
+<!--                style="@style/TextContent"-->
+<!--                android:layout_width="172dp"-->
+<!--                android:layout_height="76dp"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/date_release"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/image"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.0"-->
+<!--                tools:text="@string/title" />-->
 
-                <TextView
-                    style="@style/TextSpec.Field"
-                    android:text="@string/vote_count" />
+<!--            <TextView-->
+<!--                android:id="@+id/date_release"-->
+<!--                style="@style/TextContent"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:lineSpacingMultiplier="1"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/image"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/title"-->
+<!--                tools:text="@string/date" />-->
 
-                <TextView
-                    android:id="@+id/vote_count"
-                    style="@style/TextSpec.Value"
-                    tools:text="@string/content_specs" />
-            </TableRow>
+<!--            <TextView-->
+<!--                android:id="@+id/subtitle"-->
+<!--                style="@style/TextContent"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:lineSpacingMultiplier="1"-->
+<!--                android:text="@string/title_rating"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/image"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/date_release" />-->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+<!--            <TextView-->
+<!--                android:id="@+id/rating"-->
+<!--                style="@style/TextContent"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:lineSpacingMultiplier="1"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/image"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/subtitle"-->
+<!--                tools:text="@string/rating" />-->
 
-                <TextView
-                    style="@style/TextSpec.Field"
-                    android:text="@string/popularity" />
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/fab_favorite"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="140dp"-->
+<!--                android:src="@drawable/ic_favorite"-->
+<!--                android:background="?selectableItemBackground"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/image"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/rating"-->
+<!--                app:maxImageSize="28dp"-->
+<!--                tools:ignore="ContentDescription" />-->
 
-                <TextView
-                    android:id="@+id/popularity"
-                    style="@style/TextSpec.Value"
-                    tools:text="@string/content_specs" />
-            </TableRow>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+<!--        <TextView-->
+<!--            style="@style/TextContent.Subtitle"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="@string/synopsis_title"-->
+<!--            android:layout_marginBottom="10dp"/>-->
 
-                <TextView
-                    style="@style/TextSpec.Field"
-                    android:text="@string/orisinal_language" />
+<!--        <TextView-->
+<!--            android:id="@+id/synopsis"-->
+<!--            style="@style/TextContent"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:layout_marginLeft="16dp"-->
+<!--            android:layout_marginRight="16dp"-->
+<!--            android:lineSpacingMultiplier="1"-->
+<!--            tools:text="@string/synopsis"-->
+<!--            android:textStyle="italic" />-->
 
-                <TextView
-                    android:id="@+id/orisinal_language"
-                    style="@style/TextSpec.Value"
-                    tools:text="@string/content_specs" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+<!--    </LinearLayout>-->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_deadline_button"
+        android:text="@string/share"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

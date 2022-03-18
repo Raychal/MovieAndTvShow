@@ -33,7 +33,15 @@
         app:layout_constraintBottom_toTopOf="@id/card_shadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/img_data"
-        app:layout_constraintTop_toTopOf="@id/tv_data_title" />
+        app:layout_constraintTop_toTopOf="@id/tv_data_title" >
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp" />
+    </androidx.cardview.widget.CardView>
 
     <View
         android:id="@+id/helper"

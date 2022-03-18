@@ -1,27 +1,13 @@
 package com.raychal.moviesandtvshowsfinal.ui.detail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.raychal.moviesandtvshowsfinal.data.source.CatalogRepository
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.MovieEntity
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.TvShowEntity
-import javax.inject.Inject
+import com.raychal.core.domain.model.Movie
+import com.raychal.core.domain.usecase.MovieAppUseCase
 
-class DetailViewModel @Inject constructor(private val catalogRepository: CatalogRepository) :
+class DetailViewModel (private val movieAppUseCase: MovieAppUseCase) :
     ViewModel() {
 
-    fun getMovieDetail(movieId: Int): LiveData<MovieEntity> =
-        catalogRepository.getMovieDetail(movieId)
-
-    fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity> =
-        catalogRepository.getTvShowDetail(tvShowId)
-
-    fun setFavoriteMovie(movie: MovieEntity){
-        catalogRepository.setFavoriteMovie(movie)
+    fun setFavoriteMovie(movie: Movie, newStatus: Boolean) {
+        movieAppUseCase.setMovieFavorite(movie, newStatus)
     }
-
-    fun setFavoriteTvShow(tvShow: TvShowEntity){
-        catalogRepository.setFavoriteTvShow(tvShow)
-    }
-
 }

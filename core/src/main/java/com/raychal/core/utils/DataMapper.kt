@@ -18,6 +18,7 @@ object DataMapper {
                 it.voteCount,
                 it.id,
                 it.posterPath,
+                it.backdropPath,
                 it.releaseDate,
                 favorite = false,
                 isTvShows = false
@@ -39,6 +40,7 @@ object DataMapper {
                 it.voteCount,
                 it.id,
                 it.posterPath,
+                it.backdropPath,
                 it.originalName,
                 favorite = false,
                 isTvShows = false
@@ -56,6 +58,7 @@ object DataMapper {
                 it.originalLanguage!!,
                 it.title!!,
                 it.posterPath!!,
+                it.backdropPath!!,
                 it.releaseDate!!,
                 it.popularity!!,
                 it.voteAverage!!,
@@ -79,6 +82,7 @@ object DataMapper {
             input.id,
             input.title,
             input.posterPath,
+            input.backdropPath,
             favorite = input.favorite,
             isTvShows = input.isTvShows
         )

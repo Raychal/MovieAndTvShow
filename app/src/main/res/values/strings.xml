@@ -25,4 +25,15 @@
     <string name="empty_state_title_no_conn">No internet connection</string>
     <string name="tab_title_movie">Movie</string>
     <string name="tab_title_tvshow">TV Show</string>
+    <string name="title_favorite">favorite</string>
+    <string name="no_data">no data</string>
+    <string name="search">search</string>
+    <string name="share">share</string>
+    <string name="foregroundpostertopbar">foreground poster</string>
+    <string name="backbutton">back button</string>
+    <string name="subPoster">poster</string>
+    <string name="postertopbar">poster top</string>
+    <string name="popularity_detail">popularity detail</string>
+    <string name="shareTitle">Bagikan aplikasi ini sekarang.</string>
+    <string name="shareBody">Saya sedang melihat info film di Movie App, Download Aplikasi ini Sekarang!!</string>
 </resources>

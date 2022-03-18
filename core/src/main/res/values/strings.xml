@@ -25,4 +25,5 @@
     <string name="empty_state_title_no_conn">No internet connection</string>
     <string name="tab_title_movie">Movie</string>
     <string name="tab_title_tvshow">TV Show</string>
+    <string name="baseUrlImage">http://image.tmdb.org/t/p/w500%s</string>
 </resources>

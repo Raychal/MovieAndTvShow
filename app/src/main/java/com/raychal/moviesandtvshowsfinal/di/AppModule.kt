@@ -1,53 +1,25 @@
 package com.raychal.moviesandtvshowsfinal.di
 
-import android.app.Application
-import com.raychal.moviesandtvshowsfinal.data.source.CatalogRepository
-import com.raychal.moviesandtvshowsfinal.data.source.local.LocalDataSource
-import com.raychal.moviesandtvshowsfinal.data.source.local.room.CatalogDao
-import com.raychal.moviesandtvshowsfinal.data.source.local.room.CatalogDatabase
-import com.raychal.moviesandtvshowsfinal.data.source.remote.RemoteDataSource
-import com.raychal.moviesandtvshowsfinal.data.source.remote.api.ApiService
-import com.raychal.moviesandtvshowsfinal.vm.ViewModelFactory
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.raychal.core.domain.usecase.MovieAppInteractor
+import com.raychal.core.domain.usecase.MovieAppUseCase
+import com.raychal.moviesandtvshowsfinal.ui.detail.DetailViewModel
+import com.raychal.moviesandtvshowsfinal.ui.home.MainViewModel
+import com.raychal.moviesandtvshowsfinal.ui.movies.MoviesViewModel
+import com.raychal.moviesandtvshowsfinal.ui.tvshows.TvShowsViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-class AppModule {
+val useCaseModule = module {
+    factory<MovieAppUseCase> { MovieAppInteractor(get()) }
+}
 
-    companion object {
-
-        @Singleton
-        @Provides
-        fun provideCatalogDatabase(application: Application): CatalogDatabase =
-            CatalogDatabase.getInstance(application)
-
-        @Singleton
-        @Provides
-        fun provideCatalogDao(catalogDatabase: CatalogDatabase): CatalogDao =
-            catalogDatabase.catalogDao()
-
-        @Singleton
-        @Provides
-        fun provideLocalDataSource(catalogDao: CatalogDao): LocalDataSource =
-            LocalDataSource(catalogDao)
-
-        @Singleton
-        @Provides
-        fun provideRemoteDataSource(apiService: ApiService): RemoteDataSource =
-            RemoteDataSource(apiService)
-
-        @Singleton
-        @Provides
-        fun provideCatalogRepository(
-            remoteDataSource: RemoteDataSource,
-            localDataSource: LocalDataSource
-        ): CatalogRepository = CatalogRepository(remoteDataSource, localDataSource)
-
-        @Singleton
-        @Provides
-        fun provideViewModelFactory(catalogRepository: CatalogRepository): ViewModelFactory =
-            ViewModelFactory(catalogRepository)
-
-    }
+@ExperimentalCoroutinesApi
+@FlowPreview
+val viewModelModule = module {
+    viewModel { MoviesViewModel(get()) }
+    viewModel { TvShowsViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
+    viewModel { MainViewModel(get()) }
 }

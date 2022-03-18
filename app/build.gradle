@@ -44,93 +44,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dynamicFeatures = [':favorite']
 }
 
 dependencies {
     implementation project(":core")
+    implementation project(":favorite")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-
-    testImplementation "androidx.arch.core:core-testing:$testing_core_version"
-
-    // testing
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation "androidx.test:rules:$rules_version"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
-
-    //lottie annimation
-    implementation "com.airbnb.android:lottie:$lottieVersion"
-
-    // view
-    implementation "androidx.recyclerview:recyclerview:$recyclerview"
-    implementation "androidx.cardview:cardview:$cardview"
-    implementation "androidx.viewpager2:viewpager2:$viewpager"
-
-    //navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    // Rounded ImageView
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-
-    // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
-
-    //mockito
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "org.mockito:mockito-inline:$mockito_version"
-
-    // mockito kotlin
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_ver"
-
-    // idling resource
-    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
-
-    // Retrofit Dependency
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
-    // okHttp3 Dependency
-    implementation "com.squareup.okhttp3:okhttp:$okHttp3_version"
-    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okHttp3_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3_version"
-
-    // Coroutine Dependency
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
-
-    // Navigation Component Dependency
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_component_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_component_version"
-
-    // Room dependency
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
-    // Dagger 2
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-
-    //paging
-    implementation "androidx.paging:paging-runtime-ktx:$pagging_version"
-
-    implementation "io.github.shashank02051997:FancyToast:$fancy_version"
 }

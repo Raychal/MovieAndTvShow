@@ -1,147 +1,86 @@
 package com.raychal.moviesandtvshowsfinal.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import com.raychal.moviesandtvshowsfinal.BuildConfig
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
+import com.bumptech.glide.Glide
+import com.raychal.core.domain.model.Movie
 import com.raychal.moviesandtvshowsfinal.R
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.MovieEntity
-import com.raychal.moviesandtvshowsfinal.data.source.local.entity.TvShowEntity
 import com.raychal.moviesandtvshowsfinal.databinding.ActivityDetailBinding
-import com.raychal.moviesandtvshowsfinal.utils.Constants
-import com.raychal.moviesandtvshowsfinal.utils.Constants.TYPE_MOVIE
-import com.raychal.moviesandtvshowsfinal.utils.Constants.TYPE_TVSHOW
-import com.raychal.moviesandtvshowsfinal.utils.loadFromUrl
-import com.raychal.moviesandtvshowsfinal.vm.ViewModelFactory
-import com.shashank.sony.fancytoastlib.FancyToast
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class DetailActivity : DaggerAppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: DetailViewModel
-
-    @Inject
-    lateinit var factory: ViewModelFactory
+    private val viewModel: DetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        setupViewModel()
-
-        val id = intent.getIntExtra(EXTRA_DATA, 0)
-        val type = intent.getStringExtra(EXTRA_TYPE)
-
-        if (type.equals(TYPE_MOVIE, ignoreCase = true)) {
-            setupToolbarTitle(resources.getString(R.string.toolbar_title_detail_movie))
-            observeDetail(id, null)
-
-        } else if (type.equals(TYPE_TVSHOW, ignoreCase = true)) {
-            setupToolbarTitle(resources.getString(R.string.toolbar_title_detail_tvshow))
-            observeDetail(null, id)
+        val detailMovie = intent.getParcelableExtra<Movie>(EXTRA_MOVIE)
+        if (detailMovie != null) {
+            populateDetail(detailMovie)
         }
+
+        binding.backButton.setOnClickListener { onBackPressed() }
+        binding.share.setOnClickListener { share() }
     }
 
-    private fun observeDetail(movieId: Int?, tvShowId: Int?) {
-        if (movieId != null) {
-            viewModel.getMovieDetail(movieId).observe(this, {
-                displayData(it, null)
-            })
-        }
-        else {
-            if (tvShowId != null) {
-                viewModel.getTvShowDetail(tvShowId).observe(this, {
-                    displayData(null, it)
-                })
+    @SuppressLint("StringFormatInvalid")
+    private fun populateDetail(movie: Movie) {
+        with(binding) {
+            titleDetail.text = movie.title
+            date.text = movie.releaseDate
+            overview.text = movie.overview
+            popularity.text = getString(
+                R.string.popularity_detail,
+                movie.popularity.toString(),
+                movie.voteCount.toString(),
+                movie.voteAverage.toString()
+            )
+            userScore.text = movie.voteAverage.toString()
+            Glide.with(this@DetailActivity)
+                .load(getString(R.string.baseUrlImage, movie.backdropPath))
+                .into(posterTopBar)
+            posterTopBar.tag = movie.posterPath
+
+            Glide.with(this@DetailActivity)
+                .load(getString(R.string.baseUrlImage, movie.posterPath))
+                .into(subPoster)
+            subPoster.tag = movie.posterPath
+
+            var favoriteState = movie.favorite
+            setFavoriteState(favoriteState)
+            binding.favoriteButton.setOnClickListener {
+                favoriteState = !favoriteState
+                viewModel.setFavoriteMovie(movie, favoriteState)
+                setFavoriteState(favoriteState)
             }
         }
-    }
-
-    private fun displayData(movie: MovieEntity?, tvShow: TvShowEntity?) {
-        val urlImage = movie?.posterPath ?: tvShow?.posterPath
-        val statusFavorite = movie?.isFavorite ?: tvShow?.isFavorite
-
-        with(binding){
-            title.text = movie?.title ?: tvShow?.originalName
-            dateRelease.text = movie?.releaseDate ?: tvShow?.firstAirDate
-            rating.text = (movie?.voteAverage ?: tvShow?.voteAverage.toString()).toString()
-            synopsis.text = movie?.overview ?: tvShow?.overview
-            voteCount.text = (movie?.voteCount ?: tvShow?.voteCount.toString()).toString()
-            popularity.text = (movie?.popularity ?: tvShow?.popularity.toString()).toString()
-            orisinalLanguage.text = movie?.originalLanguage ?: tvShow?.originalLanguage
-        }
-
-        statusFavorite?.let { status ->
-            setFavoriteState(status)
-        }
-
-        binding.image.loadFromUrl(BuildConfig.BASE_URL_IMAGE_TMDB + Constants.ENDPOINT_POSTER_SIZE_W185 + urlImage)
-        binding.fabFavorite.setOnClickListener {
-            setFavorite(movie, tvShow)
-        }
-
     }
 
     private fun setFavoriteState(status: Boolean){
         if (status) {
-            binding.fabFavorite.setImageResource(R.drawable.ic_favorite)
+            binding.favoriteButton.setImageResource(R.drawable.ic_favorite)
         } else {
-            binding.fabFavorite.setImageResource(R.drawable.ic_unfavorite)
+            binding.favoriteButton.setImageResource(R.drawable.ic_unfavorite)
         }
     }
 
-    private fun setFavorite(movie: MovieEntity?, tvShow: TvShowEntity?) {
-        if (movie != null) {
-            if (movie.isFavorite){
-                FancyToast.makeText(
-                    this, resources.getString(R.string.favorite_remove, "${movie.title}"), Toast.LENGTH_SHORT, FancyToast.ERROR, false
-                ).show()
-            }else {
-                FancyToast.makeText(
-                    this, resources.getString(R.string.favorite_add, "${movie.title}"), Toast.LENGTH_SHORT, FancyToast.SUCCESS, false
-                ).show()
-            }
-            viewModel.setFavoriteMovie(movie)
-        } else {
-            if (tvShow != null) {
-                if (tvShow.isFavorite){
-                    FancyToast.makeText(
-                        this, resources.getString(R.string.favorite_remove, "${tvShow.originalName}"), Toast.LENGTH_SHORT, FancyToast.ERROR, false
-                    ).show()
-                }else {
-                    FancyToast.makeText(
-                        this, resources.getString(R.string.favorite_add, "${tvShow.originalName}"), Toast.LENGTH_SHORT, FancyToast.SUCCESS, false
-                    ).show()
-                }
-                viewModel.setFavoriteTvShow(tvShow)
-            }
+    private fun share() {
+        val mimeType = "text/plain"
+        ShareCompat.IntentBuilder.from(this).apply {
+            setType(mimeType)
+            setChooserTitle(getString(R.string.shareTitle))
+            setText(getString(R.string.shareBody))
+            startChooser()
         }
-    }
-
-    private fun setupToolbarTitle(title: String) {
-        supportActionBar?.title = title
-    }
-
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this@DetailActivity,
-            factory
-        )[DetailViewModel::class.java]
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        onBackPressed()
-        return true
     }
 
     companion object {
-        const val EXTRA_DATA = "extra_data"
-        const val EXTRA_TYPE = "extra_type"
+        const val EXTRA_MOVIE = "extraMovie"
     }
 }
